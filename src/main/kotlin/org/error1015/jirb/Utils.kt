@@ -18,7 +18,9 @@ infix operator fun Component.plus(another: Component): MutableComponent = this.c
 val String.asTranslatable: MutableComponent
     get() = Component.translatable("tooltip.$ID.$this")
 
-fun MutableComponent.setDarkGray(): MutableComponent = this.withStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY))
+fun MutableComponent.setColor(formatting: ChatFormatting): MutableComponent =this.withStyle(Style.EMPTY.withColor(formatting))
+
+fun MutableComponent.setDarkGray(): MutableComponent = setColor(ChatFormatting.DARK_GRAY)
 
 val String.asLiteral: MutableComponent
     get() = Component.literal(this)

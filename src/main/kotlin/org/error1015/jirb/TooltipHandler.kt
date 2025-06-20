@@ -1,6 +1,7 @@
 package org.error1015.jirb
 
 import com.mojang.blaze3d.platform.InputConstants
+import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
@@ -71,7 +72,7 @@ object TooltipHandler {
         stack.components.apply {
             if (this.size() > 0) {
                 val components = stack.components ?: return
-                val dataComponentsTooltip = ("data_components".asTranslatable + " $components".asLiteral).setDarkGray()
+                val dataComponentsTooltip = ("data_components".asTranslatable + " $components".asLiteral).setColor(ChatFormatting.GREEN)
                 event.registerTooltip(dataComponentsTooltip, Config.modConfig.dataComponentsMode)
             }
         }
