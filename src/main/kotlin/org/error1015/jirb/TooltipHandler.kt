@@ -114,7 +114,7 @@ object TooltipHandler {
         tooltip: Component,
         state: ConfigState
     ) {
-        val isEnabled: Boolean = when (state) {
+        val isEnabled = when (state) {
             ConfigState.DISABLE -> false
             ConfigState.ENABLE -> true
             ConfigState.SHIFT -> isShiftKeyDown()
