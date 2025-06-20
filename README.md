@@ -2,5 +2,5 @@
 This project use MIT licence to open source.
 
 ## Dependencies
-[Kotlin For Forge](https://modrinth.com/mod/kotlin-for-forge)
+[Kotlin For Forge](https://modrinth.com/mod/kotlin-for-forge)  
 [JEI](https://modrinth.com/mod/jei)
