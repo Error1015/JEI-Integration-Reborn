@@ -1,0 +1,19 @@
+{
+  "_comment": "JEI Integration Language File",
+  "_comment": "Language Name: Français",
+  "_comment": "Language Region: France",
+  "_comment": "Language Code: fr_fr",
+  "_comment": "Tooltips",
+
+  "tooltip.jei_integration_reborn.burnTime": "Temps de combustion:",
+  "tooltip.jei_integration_reborn.burnTime.suffix": "ticks",
+  "tooltip.jei_integration_reborn.durability": "Durabilité :",
+  "tooltip.jei_integration_reborn.hunger": "Faim :",
+  "tooltip.jei_integration_reborn.saturation": "Saturation :",
+  "tooltip.jei_integration_reborn.maxStackSize": "Taille maximale de la pile :",
+  "tooltip.jei_integration_reborn.data_components": "Data Components:",
+  "tooltip.jei_integration_reborn.registryName": "ID :",
+  "tooltip.jei_integration_reborn.tags": "Tags :",
+  "tooltip.jei_integration_reborn.translationKey": "Clé de traduction :",
+  "tooltip.jei_integration_reborn.enchantability": "Enchantability:"
+}

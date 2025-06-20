@@ -1,0 +1,21 @@
+{
+  "_comment": "JEI Integration Language File",
+
+  "_comment": "Language Name: English",
+  "_comment": "Language Region: United States",
+  "_comment": "Language Code: en_us",
+
+
+  "_comment": "Tooltips",
+  "tooltip.jei_integration_reborn.burnTime": "Burn Time:",
+  "tooltip.jei_integration_reborn.burnTime.suffix": "ticks",
+  "tooltip.jei_integration_reborn.durability": "Durability:",
+  "tooltip.jei_integration_reborn.enchantability": "Enchantability:",
+  "tooltip.jei_integration_reborn.hunger": "Hunger:",
+  "tooltip.jei_integration_reborn.saturation": "Saturation:",
+  "tooltip.jei_integration_reborn.maxStackSize": "Max Stack Size:",
+  "tooltip.jei_integration_reborn.data_components": "Data Components:",
+  "tooltip.jei_integration_reborn.registryName": "ID:",
+  "tooltip.jei_integration_reborn.tags": "Tags:",
+  "tooltip.jei_integration_reborn.translationKey": "Translation Key:"
+}

@@ -1,0 +1,21 @@
+{
+  "_comment": "JEI Integration Language File",
+
+  "_comment": "Language Name: Russian",
+  "_comment": "Language Region: Russia",
+  "_comment": "Language Code: ru_ru",
+
+
+  "_comment": "Tooltips",
+  "tooltip.jei_integration_reborn.burnTime": "Время горения:",
+  "tooltip.jei_integration_reborn.burnTime.suffix": "тактов",
+  "tooltip.jei_integration_reborn.durability": "Прочность:",
+  "tooltip.jei_integration_reborn.hunger": "Голод:",
+  "tooltip.jei_integration_reborn.saturation": "Насыщение:",
+  "tooltip.jei_integration_reborn.maxStackSize": "Макс. размер стака:",
+  "tooltip.jei_integration_reborn.data_components": "Компоненты данных:",
+  "tooltip.jei_integration_reborn.registryName": "ID:",
+  "tooltip.jei_integration_reborn.tags": "Теги:",
+  "tooltip.jei_integration_reborn.translationKey": "Ключ перевода:",
+  "tooltip.jei_integration_reborn.enchantability": "Зачаровываемость:"
+}

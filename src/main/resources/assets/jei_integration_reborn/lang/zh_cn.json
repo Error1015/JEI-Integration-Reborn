@@ -1,0 +1,13 @@
+{
+  "tooltip.jei_integration_reborn.burnTime": "燃烧时间:",
+  "tooltip.jei_integration_reborn.burnTime.suffix": "ticks",
+  "tooltip.jei_integration_reborn.durability": "耐久度:",
+  "tooltip.jei_integration_reborn.enchantability": "附魔能力:",
+  "tooltip.jei_integration_reborn.hunger": "饥饿度:",
+  "tooltip.jei_integration_reborn.saturation": "饱和度:",
+  "tooltip.jei_integration_reborn.maxStackSize": "最大堆叠:",
+  "tooltip.jei_integration_reborn.data_components": "数据组件:",
+  "tooltip.jei_integration_reborn.registryName": "ID:",
+  "tooltip.jei_integration_reborn.tags": "Tags:",
+  "tooltip.jei_integration_reborn.translationKey": "翻译键:"
+}
