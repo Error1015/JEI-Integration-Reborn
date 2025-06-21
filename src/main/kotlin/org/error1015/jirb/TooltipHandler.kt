@@ -19,17 +19,17 @@ import java.text.DecimalFormat
 object TooltipHandler {
     val config inline get() = Config.modConfig
 
+    val formatter = DecimalFormat("#.##").apply {
+        isGroupingUsed = true
+        groupingSize = 3
+    }
+
     private fun isShiftKeyDown() = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT) || InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_SHIFT)
 
     private fun isDebugMode() = minecraft.options.advancedItemTooltips
 
     @SubscribeEvent
     fun onTooltipEvent(event: ItemTooltipEvent) {
-        val formatter = DecimalFormat("#.##").apply {
-            isGroupingUsed = true
-            groupingSize = 3
-        }
-
         val stack = event.itemStack ?: return
         val item = stack.item ?: return
         if (event.itemStack.isEmpty) return
