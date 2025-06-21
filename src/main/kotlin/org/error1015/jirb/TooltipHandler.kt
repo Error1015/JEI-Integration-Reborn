@@ -17,6 +17,8 @@ import java.text.DecimalFormat
 
 @EventBusSubscriber(value = [Dist.CLIENT])
 object TooltipHandler {
+    val config inline get() = Config.modConfig
+
     private fun isShiftKeyDown() = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT) || InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_SHIFT)
 
     private fun isDebugMode() = minecraft.options.advancedItemTooltips
@@ -41,7 +43,7 @@ object TooltipHandler {
         }.let { burnTime ->
             if (burnTime > 0) {
                 val burnTooltip = ("burnTime".asTranslatable + " ${formatter.format(burnTime)} ".asLiteral + "burnTime.suffix".asTranslatable).setDarkGray()
-                event.registerTooltip(burnTooltip, Config.modConfig.burnTimeTooltipMode)
+                event.registerTooltip(burnTooltip, config.burnTimeTooltipMode)
             }
         }
 
@@ -50,21 +52,21 @@ object TooltipHandler {
         val currentDamage: Int = maxDamage - stack.damageValue
         if (maxDamage > 0) {
             val durabilityTooltip = ("durability".asTranslatable + " ${formatter.format(currentDamage)}/$maxDamage".asLiteral).setDarkGray()
-            event.registerTooltip(durabilityTooltip, Config.modConfig.durabilityTooltipMode)
+            event.registerTooltip(durabilityTooltip, config.durabilityTooltipMode)
         }
 
         // Tooltip - Enchantability
         val enchantability = stack.enchantmentValue
         if (enchantability > 0) {
             val enchantabilityTooltip = ("enchantability".asTranslatable + " $enchantability".asLiteral).setDarkGray()
-            event.registerTooltip(enchantabilityTooltip, Config.modConfig.enchantabilityTooltipMode)
+            event.registerTooltip(enchantabilityTooltip, config.enchantabilityTooltipMode)
         }
 
         // Tooltip - Hunger / Saturation
         stack.getFoodProperties(minecraft.player)?.apply {
             val satValue = nutrition * saturation * 2
             val foodTooltip = ("hunger".asTranslatable + " $nutrition ".asLiteral + "saturation".asTranslatable + " ${formatter.format(satValue)}".asLiteral).setDarkGray()
-            event.registerTooltip(foodTooltip, Config.modConfig.foodTooltipMode)
+            event.registerTooltip(foodTooltip, config.foodTooltipMode)
         }
 
         // Tooltip - DataComponent
@@ -72,22 +74,21 @@ object TooltipHandler {
             if (this.size() > 0) {
                 val components = stack.components ?: return
                 val dataComponentsTooltip = ("data_components".asTranslatable + " $components".asLiteral).setColor(ChatFormatting.GREEN)
-                event.registerTooltip(dataComponentsTooltip, Config.modConfig.dataComponentsMode)
+                event.registerTooltip(dataComponentsTooltip, config.dataComponentsMode)
             }
         }
 
 
         // Tooltip - Registry Name
-        ("registryName".asTranslatable + " ${BuiltInRegistries.ITEM.getKey(item)}".asLiteral).setDarkGray()
-            .let { registryName ->
-                event.registerTooltip(registryName, Config.modConfig.registryNameMode)
+        ("registryName".asTranslatable + " ${BuiltInRegistries.ITEM.getKey(item)}".asLiteral).setDarkGray().let { registryName ->
+            event.registerTooltip(registryName, config.registryNameMode)
         }
 
         // Tooltip - Max Stack Size
         stack.maxStackSize.apply {
             if (this > 0) {
-                val maxStackSizeTooltip = ("maxStackSize".asTranslatable + " $this".asLiteral).apply { setDarkGray() }
-                event.registerTooltip(maxStackSizeTooltip, Config.modConfig.maxStackSizeTooltipMode)
+                val maxStackSizeTooltip = ("maxStackSize".asTranslatable + " $this".asLiteral).setDarkGray()
+                event.registerTooltip(maxStackSizeTooltip, config.maxStackSizeTooltipMode)
             }
         }
 
@@ -100,13 +101,13 @@ object TooltipHandler {
                     add(component)
                 }
             }
-            event.registerTooltip(tagsTooltip, Config.modConfig.tagsTooltipMode)
-            event.registerTooltips(tags, Config.modConfig.tagsTooltipMode)
+            event.registerTooltip(tagsTooltip, config.tagsTooltipMode)
+            event.registerTooltips(tags, config.tagsTooltipMode)
         }
 
         // Tooltip - Translation Key
         ("translationKey".asTranslatable + " ${stack.descriptionId}".asLiteral).setDarkGray().let { translationKeyTooltip ->
-            event.registerTooltip(translationKeyTooltip, Config.modConfig.translationKeyTooltipMode)
+            event.registerTooltip(translationKeyTooltip, config.translationKeyTooltipMode)
         }
     }
 
