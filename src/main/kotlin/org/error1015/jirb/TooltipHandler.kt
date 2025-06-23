@@ -43,7 +43,7 @@ object TooltipHandler {
         }.let { burnTime ->
             if (burnTime > 0) {
                 val burnTooltip = ("burnTime".asTranslatable + " ${formatter.format(burnTime)} ".asLiteral + "burnTime.suffix".asTranslatable).setDarkGray()
-                event.registerTooltip(burnTooltip, config.burnTimeTooltipMode)
+                event.addTooltip(burnTooltip, config.burnTimeTooltipMode)
             }
         }
 
@@ -52,21 +52,21 @@ object TooltipHandler {
         val currentDamage: Int = maxDamage - stack.damageValue
         if (maxDamage > 0) {
             val durabilityTooltip = ("durability".asTranslatable + " ${formatter.format(currentDamage)}/$maxDamage".asLiteral).setDarkGray()
-            event.registerTooltip(durabilityTooltip, config.durabilityTooltipMode)
+            event.addTooltip(durabilityTooltip, config.durabilityTooltipMode)
         }
 
         // Tooltip - Enchantability
         val enchantability = stack.enchantmentValue
         if (enchantability > 0) {
             val enchantabilityTooltip = ("enchantability".asTranslatable + " $enchantability".asLiteral).setDarkGray()
-            event.registerTooltip(enchantabilityTooltip, config.enchantabilityTooltipMode)
+            event.addTooltip(enchantabilityTooltip, config.enchantabilityTooltipMode)
         }
 
         // Tooltip - Hunger / Saturation
         stack.getFoodProperties(minecraft.player)?.apply {
             val satValue = nutrition * saturation * 2
             val foodTooltip = ("hunger".asTranslatable + " $nutrition ".asLiteral + "saturation".asTranslatable + " ${formatter.format(satValue)}".asLiteral).setDarkGray()
-            event.registerTooltip(foodTooltip, config.foodTooltipMode)
+            event.addTooltip(foodTooltip, config.foodTooltipMode)
         }
 
         // Tooltip - DataComponent
@@ -74,21 +74,20 @@ object TooltipHandler {
             if (this.size() > 0) {
                 val components = stack.components ?: return
                 val dataComponentsTooltip = ("data_components".asTranslatable + " $components".asLiteral).setColor(ChatFormatting.GREEN)
-                event.registerTooltip(dataComponentsTooltip, config.dataComponentsMode)
+                event.addTooltip(dataComponentsTooltip, config.dataComponentsMode)
             }
         }
 
-
         // Tooltip - Registry Name
         ("registryName".asTranslatable + " ${BuiltInRegistries.ITEM.getKey(item)}".asLiteral).setDarkGray().let { registryName ->
-            event.registerTooltip(registryName, config.registryNameMode)
+            event.addTooltip(registryName, config.registryNameMode)
         }
 
         // Tooltip - Max Stack Size
         stack.maxStackSize.apply {
             if (this > 0) {
                 val maxStackSizeTooltip = ("maxStackSize".asTranslatable + " $this".asLiteral).setDarkGray()
-                event.registerTooltip(maxStackSizeTooltip, config.maxStackSizeTooltipMode)
+                event.addTooltip(maxStackSizeTooltip, config.maxStackSizeTooltipMode)
             }
         }
 
@@ -101,17 +100,17 @@ object TooltipHandler {
                     add(component)
                 }
             }
-            event.registerTooltip(tagsTooltip, config.tagsTooltipMode)
-            event.registerTooltips(tags, config.tagsTooltipMode)
+            event.addTooltip(tagsTooltip, config.tagsTooltipMode)
+            event.addTooltips(tags, config.tagsTooltipMode)
         }
 
         // Tooltip - Translation Key
         ("translationKey".asTranslatable + " ${stack.descriptionId}".asLiteral).setDarkGray().let { translationKeyTooltip ->
-            event.registerTooltip(translationKeyTooltip, config.translationKeyTooltipMode)
+            event.addTooltip(translationKeyTooltip, config.translationKeyTooltipMode)
         }
     }
 
-    private fun ItemTooltipEvent.registerTooltip(
+    private fun ItemTooltipEvent.addTooltip(
         tooltip: Component,
         state: ConfigState
     ) {
@@ -127,12 +126,12 @@ object TooltipHandler {
         }
     }
 
-    private fun ItemTooltipEvent.registerTooltips(
+    private fun ItemTooltipEvent.addTooltips(
         tooltips: Collection<Component>,
         state: ConfigState
     ) {
         for (component in tooltips) {
-            registerTooltip(component, state)
+            addTooltip(component, state)
         }
     }
 }
