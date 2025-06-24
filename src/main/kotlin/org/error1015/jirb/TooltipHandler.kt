@@ -12,7 +12,6 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import org.error1015.jirb.config.Config
 import org.error1015.jirb.config.ConfigState
-import org.lwjgl.glfw.GLFW
 import java.text.DecimalFormat
 
 @EventBusSubscriber(value = [Dist.CLIENT])
@@ -24,7 +23,7 @@ object TooltipHandler {
         groupingSize = 3
     }
 
-    private fun isShiftKeyDown() = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_LEFT_SHIFT) || InputConstants.isKeyDown(window, GLFW.GLFW_KEY_RIGHT_SHIFT)
+    private fun ItemTooltipEvent.isShiftKeyDown() = flags.hasShiftDown()
 
     private fun isDebugMode() = minecraft.options.advancedItemTooltips
 
