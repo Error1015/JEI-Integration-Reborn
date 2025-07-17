@@ -7,6 +7,9 @@
 
 
   "_comment": "Tooltips",
+  "key.jei_integration_reborn": "JEI Integration Reborn Keys",
+  "key.jei_integration_reborn.copy_id_key":  "Copy Item ID",
+
   "tooltip.jei_integration_reborn.burnTime": "Burn Time:",
   "tooltip.jei_integration_reborn.burnTime.suffix": "ticks",
   "tooltip.jei_integration_reborn.durability": "Durability:",

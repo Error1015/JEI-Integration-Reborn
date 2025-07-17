@@ -1,4 +1,6 @@
 {
+  "key.jei_integration_reborn": "JEI扩展: 重生按键",
+  "key.jei_integration_reborn.copy_id_key": "复制物品ID",
   "tooltip.jei_integration_reborn.burnTime": "燃烧时间:",
   "tooltip.jei_integration_reborn.burnTime.suffix": "ticks",
   "tooltip.jei_integration_reborn.durability": "耐久度:",
