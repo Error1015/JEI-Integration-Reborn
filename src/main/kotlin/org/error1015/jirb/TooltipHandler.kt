@@ -11,20 +11,15 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import org.error1015.jirb.config.Config
 import org.error1015.jirb.config.ConfigState
+import org.error1015.jirb.config.isEnabled
 import java.text.DecimalFormat
 
 @EventBusSubscriber(value = [Dist.CLIENT])
 object TooltipHandler {
-    val config inline get() = Config.modConfig
-
     val formatter = DecimalFormat("#.##").apply {
         isGroupingUsed = true
         groupingSize = 3
     }
-
-    private fun ItemTooltipEvent.isShiftKeyDown() = flags.hasShiftDown()
-
-    private fun isDebugMode() = minecraft.options.advancedItemTooltips
 
     @SubscribeEvent
     fun onTooltipEvent(event: ItemTooltipEvent) {
@@ -32,104 +27,102 @@ object TooltipHandler {
         val item = stack.item ?: return
         if (event.itemStack.isEmpty) return
 
-        // Tooltip - Burn Time
-        try {
-            stack.getBurnTime(RecipeType.SMELTING)
-        } catch (_: Exception) {
-            logger.warn("Get item burn time failed")
-            0
-        }.let { burnTime ->
-            if (burnTime > 0) {
-                val burnTooltip = ("burnTime".asTranslatable + " ${formatter.format(burnTime)} ".asLiteral + "burnTime.suffix".asTranslatable).setDarkGray()
-                event.addTooltip(burnTooltip, config.burnTimeTooltipMode)
-            }
-        }
-
-        // Tooltip - Durability
         val maxDamage = stack.maxDamage
         val currentDamage: Int = maxDamage - stack.damageValue
-        if (maxDamage > 0) {
-            val durabilityTooltip = ("durability".asTranslatable + " ${formatter.format(currentDamage)}/$maxDamage".asLiteral).setDarkGray()
-            event.addTooltip(durabilityTooltip, config.durabilityTooltipMode)
-        }
-
-        // Tooltip - Enchantability
         val enchantability = stack.enchantmentValue
-        if (enchantability > 0) {
-            val enchantabilityTooltip = ("enchantability".asTranslatable + " $enchantability".asLiteral).setDarkGray()
-            event.addTooltip(enchantabilityTooltip, config.enchantabilityTooltipMode)
-        }
 
-        // Tooltip - Hunger / Saturation
-        stack.getFoodProperties(minecraft.player)?.apply {
-            val satValue = nutrition * saturation * 2
-            val foodTooltip = ("hunger".asTranslatable + " $nutrition ".asLiteral + "saturation".asTranslatable + " ${formatter.format(satValue)}".asLiteral).setDarkGray()
-            event.addTooltip(foodTooltip, config.foodTooltipMode)
-        }
-
-        // Tooltip - DataComponent
-        stack.components.apply {
-            if (this.size() > 0) {
-                val components = stack.components ?: return
-                val dataComponentsTooltip = ("data_components".asTranslatable + " $components".asLiteral).setColor(ChatFormatting.GREEN)
-                event.addTooltip(dataComponentsTooltip, config.dataComponentsMode)
-            }
-        }
-
-        // Tooltip - Registry Name
-        ("registryName".asTranslatable + " ${BuiltInRegistries.ITEM.getKey(item)}".asLiteral).setDarkGray().let { registryName ->
-            event.addTooltip(registryName, config.registryNameMode)
-        }
-
-        // Tooltip - Max Stack Size
-        stack.maxStackSize.apply {
-            if (this > 0) {
-                val maxStackSizeTooltip = ("maxStackSize".asTranslatable + " $this".asLiteral).setDarkGray()
-                event.addTooltip(maxStackSizeTooltip, config.maxStackSizeTooltipMode)
-            }
-        }
-
-        // Tooltip - Tags
-        if (stack.tags.count() > 0) {
-            val tagsTooltip = "tags".asTranslatable.setDarkGray()
-            val tags = mutableSetOf<Component>().apply {
-                for (tag: ResourceLocation in stack.tags.map { it.location }.toList()) {
-                    val component = " $tag".asLiteral.setDarkGray()
-                    add(component)
+        with(Config.modConfig) {
+            // Tooltip - Burn Time
+            try {
+                stack.getBurnTime(RecipeType.SMELTING)
+            } catch (_: Exception) {
+                logger.warn("Get item burn time failed")
+                0
+            }.let { burnTime ->
+                if (burnTime > 0) {
+                    val burnTooltip = ("burnTime".asTranslatable + " ${formatter.format(burnTime)} ".toLiteral + "burnTime.suffix".asTranslatable).setDarkGray()
+                    event.addTooltip(burnTooltip, burnTimeTooltipMode)
                 }
             }
-            event.addTooltip(tagsTooltip, config.tagsTooltipMode)
-            event.addTooltips(tags, config.tagsTooltipMode)
+
+            // Tooltip - Durability
+            if (maxDamage > 0) {
+                val durabilityTooltip = ("durability".asTranslatable + " ${formatter.format(currentDamage)}/$maxDamage".toLiteral).setDarkGray()
+                event.addTooltip(durabilityTooltip, durabilityTooltipMode)
+            }
+
+            // Tooltip - Enchantability
+            if (enchantability > 0) {
+                val enchantabilityTooltip = ("enchantability".asTranslatable + " $enchantability".toLiteral).setDarkGray()
+                event.addTooltip(enchantabilityTooltip, enchantabilityTooltipMode)
+            }
+
+            // Tooltip - Hunger / Saturation
+            stack.getFoodProperties(minecraft.player)?.apply {
+                val satValue = nutrition * saturation * 2
+                val foodTooltip = ("hunger".asTranslatable + " $nutrition ".toLiteral + "saturation".asTranslatable + " ${formatter.format(satValue)}".toLiteral).setDarkGray()
+                event.addTooltip(foodTooltip, foodTooltipMode)
+            }
+
+            // Tooltip - DataComponent
+            stack.components.apply {
+                if (this.size() > 0) {
+                    val components = stack.components ?: return
+                    val dataComponentsTooltip = ("data_components".asTranslatable + " $components".toLiteral).setColor(ChatFormatting.GREEN)
+                    event.addTooltip(dataComponentsTooltip, dataComponentsMode)
+                }
+            }
+
+            // Tooltip - Registry Name
+            ("registryName".asTranslatable + " ${BuiltInRegistries.ITEM.getKey(item)}".toLiteral).setDarkGray().let { registryName ->
+                event.addTooltip(registryName, registryNameMode)
+            }
+
+            // Tooltip - Max Stack Size
+            stack.maxStackSize.apply {
+                if (this > 0) {
+                    val maxStackSizeTooltip = ("maxStackSize".asTranslatable + " $this".toLiteral).setDarkGray()
+                    event.addTooltip(maxStackSizeTooltip, maxStackSizeTooltipMode)
+                }
+            }
+
+            // Tooltip - Tags
+            if (stack.tags.count() > 0) {
+                val tagsTooltip = "tags".asTranslatable.setDarkGray()
+                val tags = mutableSetOf<Component>().apply {
+                    for (tag: ResourceLocation in stack.tags.map { it.location }.toList()) {
+                        val component = " $tag".toLiteral.setDarkGray()
+                        this@apply.add(component)
+                    }
+                }
+                event.addTooltip(tagsTooltip, tagsTooltipMode)
+                event.addTooltips(tags, tagsTooltipMode)
+            }
+
+            // Tooltip - Translation Key
+            ("translationKey".asTranslatable + " ${stack.descriptionId}".toLiteral).setDarkGray().let { translationKeyTooltip ->
+                event.addTooltip(translationKeyTooltip, translationKeyTooltipMode)
+            }
         }
 
-        // Tooltip - Translation Key
-        ("translationKey".asTranslatable + " ${stack.descriptionId}".asLiteral).setDarkGray().let { translationKeyTooltip ->
-            event.addTooltip(translationKeyTooltip, config.translationKeyTooltipMode)
-        }
     }
+}
 
-    private fun ItemTooltipEvent.addTooltip(
-        tooltip: Component,
-        state: ConfigState
-    ) {
-        val isEnabled = when (state) {
-            ConfigState.DISABLE -> false
-            ConfigState.ENABLE -> true
-            ConfigState.SHIFT -> isShiftKeyDown()
-            ConfigState.DEBUG -> isDebugMode()
-            ConfigState.SHIFT_AND_DEBUG -> isShiftKeyDown() && isDebugMode()
-        }
-        if (isEnabled) {
-            toolTip.add(tooltip)
-        }
+// f3 + h 调试模式状态
+val advancedMode = minecraft.options.advancedItemTooltips
+
+private fun ItemTooltipEvent.addTooltip(
+    tooltip: Component, state: ConfigState
+) {
+    if (state.isEnabled(flags.hasShiftDown(), advancedMode)) {
+        toolTip.add(tooltip)
     }
+}
 
-    private fun ItemTooltipEvent.addTooltips(
-        tooltips: Collection<Component>,
-        state: ConfigState
-    ) {
-        for (component in tooltips) {
-            addTooltip(component, state)
-        }
+private fun ItemTooltipEvent.addTooltips(
+    tooltips: Collection<Component>, state: ConfigState
+) {
+    for (component in tooltips) {
+        addTooltip(component, state)
     }
 }

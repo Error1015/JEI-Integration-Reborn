@@ -20,7 +20,7 @@ fun MutableComponent.setColor(formatting: ChatFormatting): MutableComponent = th
 
 fun MutableComponent.setDarkGray(): MutableComponent = setColor(ChatFormatting.DARK_GRAY)
 
-val String.asLiteral: MutableComponent
+val String.toLiteral: MutableComponent
     inline get() = Component.literal(this)
 
 operator fun ModConfigSpec.ConfigValue<ConfigState>.getValue(
