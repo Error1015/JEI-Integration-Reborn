@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.error1015.jirb.config.ConfigState
 import kotlin.reflect.KProperty
@@ -27,3 +28,8 @@ operator fun ModConfigSpec.ConfigValue<ConfigState>.getValue(
     any: Any?,
     property: KProperty<*>
 ): ConfigState = get()
+
+object Values {
+    val foodFullTexture: ResourceLocation = ResourceLocation.withDefaultNamespace("hud/food_full")
+
+}

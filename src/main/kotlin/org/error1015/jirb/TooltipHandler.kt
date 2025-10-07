@@ -59,8 +59,7 @@ object TooltipHandler {
 
             // Tooltip - Hunger / Saturation
             stack.getFoodProperties(minecraft.player)?.apply {
-                val satValue = nutrition * saturation * 2
-                val foodTooltip = ("hunger".asTranslatable + " $nutrition ".toLiteral + "saturation".asTranslatable + " ${formatter.format(satValue)}".toLiteral).setDarkGray()
+                val foodTooltip = ("hunger".asTranslatable + " $nutrition ".toLiteral + "saturation".asTranslatable + " ${formatter.format(saturation)}".toLiteral).setDarkGray()
                 event.addTooltip(foodTooltip, foodTooltipMode)
             }
 
