@@ -13,7 +13,8 @@ val logger: Logger = LoggerFactory.getLogger(ID)
 @Mod(ID)
 object JEIIntegrationReborn {
     init {
-        val modContainer = LOADING_CONTEXT.activeContainer
-        modContainer?.registerConfig(ModConfig.Type.CLIENT, Config.spec)
+        LOADING_CONTEXT.activeContainer?.apply {
+            registerConfig(ModConfig.Type.CLIENT, Config.spec)
+        }
     }
 }

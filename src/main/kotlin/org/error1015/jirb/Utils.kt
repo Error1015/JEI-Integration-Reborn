@@ -28,8 +28,3 @@ operator fun ModConfigSpec.ConfigValue<ConfigState>.getValue(
     any: Any?,
     property: KProperty<*>
 ): ConfigState = get()
-
-object Values {
-    val foodFullTexture: ResourceLocation = ResourceLocation.withDefaultNamespace("hud/food_full")
-
-}
